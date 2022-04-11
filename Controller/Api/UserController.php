@@ -6,19 +6,18 @@ class UserController extends BaseController
      */
     public function listAction()
     {
+
         $strErrorDesc = '';
         $requestMethod = $_SERVER["REQUEST_METHOD"];
         $arrQueryStringParams = $this->getQueryStringParams();
- 
+
         if (strtoupper($requestMethod) == 'GET') {
             try {
                 $userModel = new UserModel();
- 
                 $intLimit = 10;
                 if (isset($arrQueryStringParams['limit']) && $arrQueryStringParams['limit']) {
                     $intLimit = $arrQueryStringParams['limit'];
                 }
- 
                 $arrUsers = $userModel->getUsers($intLimit);
                 $responseData = json_encode($arrUsers);
             } catch (Error $e) {
